@@ -1,41 +1,39 @@
-
 #include <cstdlib>
 #include <cstdio>
 #include <iostream>
-#include "BOWAssigner.h"
+#include "BoW.h"
 
 namespace ocl {
 
-BOWAssigner::BOWAssigner() {
+BoW::BoW() {
+  // create descriptor matcher using BruteForce
 	matcher  = cv::DescriptorMatcher::create("BruteForce");
 }
 
 
-BOWAssigner::~BOWAssigner()
-{
+BoW::~BoW() {
 }
 
 
-void BOWAssigner::setVocabulary(const cv::Mat& vocab) {
+void BoW::setVocabulary(const cv::Mat& vocab) {
 	matcher->clear();
 	vocabulary = vocab;
 	matcher->add( std::vector<cv::Mat>(1, vocab) );
 }
 
 
-const cv::Mat& BOWAssigner::getVocabulary() const {
+const cv::Mat& BoW::getVocabulary() const {
 	return vocabulary;
 }
 
 
-int BOWAssigner::getVocabularySize() const {
+int BoW::getVocabularySize() const {
 	return vocabulary.empty() ? 0 : vocabulary.rows;
 }
 
 
-void BOWAssigner::compute(const cv::Mat& queryDesc, cv::Mat& bowDescriptor) {
+void BoW::compute(const cv::Mat& queryDesc, cv::Mat& bowDescriptor) {
 	bowDescriptor.release();
-
 	std::vector<cv::DMatch> matches;
 	matcher->match(queryDesc, matches);
 
@@ -49,9 +47,8 @@ void BOWAssigner::compute(const cv::Mat& queryDesc, cv::Mat& bowDescriptor) {
 
 		descPtr[trainIdx] = descPtr[trainIdx] + 1.0f;
 	}
-
+  // normalize BoW descriptor
 	bowDescriptor /= queryDesc.rows;
-
 }
 
 

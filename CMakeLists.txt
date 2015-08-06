@@ -28,7 +28,7 @@ find_package(Boost COMPONENTS filesystem regex program_options thread)
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(./include/)
 set(CPP
-    src/BOWAssigner.cpp
+    src/BoW.cpp
     src/ObjectClassifier.cpp
     src/ObjectDescription.cpp
     src/OCLCommon.cpp
@@ -38,7 +38,7 @@ set(CPP
 )
 
 set(HEADER
-    include/BOWAssigner.h
+    include/BoW.h
     include/ObjectClassifier.h
     include/ObjectDescription.h
     include/OCLCommon.h
@@ -48,7 +48,7 @@ set(HEADER
     include/svm.h
 )
 
-add_executable( ${PROJECT_NAME} OCLMain.cpp ${HEADER} ${CPP})
+add_executable( ${PROJECT_NAME} main.cpp ${HEADER} ${CPP})
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS} ${PCL_LIBRARIES})
 
