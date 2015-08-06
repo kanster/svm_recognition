@@ -54,9 +54,9 @@ private:
 	std::string fpfhVocabPath;
 	std::string siftVocabPath;
 	std::string hogVocabPath;
-	BOWAssigner fpfhAssigner;
-	BOWAssigner siftAssigner;
-	BOWAssigner hogAssigner;
+	BoW fpfhAssigner;
+	BoW siftAssigner;
+	BoW hogAssigner;
 
 	/// Sets up the respective feature type vocabularies
 	void setupBOWAssignment();
